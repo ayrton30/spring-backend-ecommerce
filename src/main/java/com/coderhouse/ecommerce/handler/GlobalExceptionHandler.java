@@ -1,9 +1,6 @@
 package com.coderhouse.ecommerce.handler;
 
-import com.coderhouse.ecommerce.exception.CategoryAlreadyExistException;
-import com.coderhouse.ecommerce.exception.CategoryNotFoundException;
-import com.coderhouse.ecommerce.exception.ProductAlreadyExistException;
-import com.coderhouse.ecommerce.exception.ProductNotFoundException;
+import com.coderhouse.ecommerce.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,40 +16,18 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler (MethodArgumentNotValidException.class)
     @ResponseStatus (HttpStatus.BAD_REQUEST)
-    public String MethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        log.error(ex.getMessage());
-        return ex.getMessage();
+    public ErrorMessage MethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        log.error(ex.getClass().getSimpleName() + " " + ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        return ErrorMessage.of(ex.getClass().getSimpleName(), ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
     @ResponseBody
-    @ExceptionHandler (CategoryNotFoundException.class)
+    @ExceptionHandler (ApiException.class)
     @ResponseStatus (HttpStatus.NOT_FOUND)
-    public String CNotFound(CategoryNotFoundException ex) {
-        log.error(ex.getMessage());
-        return ex.getMessage();
+    public ErrorMessage ApiException(ApiException ex) {
+        log.error(ex.getClass().getSimpleName() + " " + ex.getMessage());
+        return ErrorMessage.of(ex.getClass().getSimpleName(), ex.getMessage());
     }
 
-    @ResponseBody
-    @ExceptionHandler (CategoryAlreadyExistException.class)
-    @ResponseStatus (HttpStatus.CONFLICT)
-    public String CAlreadyExist(CategoryAlreadyExistException ex) {
-        log.error(ex.getMessage());
-        return ex.getMessage();
-    }
 
-    @ResponseBody
-    @ExceptionHandler (ProductNotFoundException.class)
-    @ResponseStatus (HttpStatus.NOT_FOUND)
-    public String PNotFound(ProductNotFoundException ex) {
-        log.error(ex.getMessage());
-        return ex.getMessage();
-    }
-
-    @ResponseBody
-    @ExceptionHandler (ProductAlreadyExistException.class)
-    @ResponseStatus (HttpStatus.CONFLICT)
-    public String PAlreadyExist(ProductAlreadyExistException ex) {
-        log.error(ex.getMessage());
-        return ex.getMessage();
-    }
 }

@@ -19,5 +19,4 @@ public class ProductResponse {
     private String description;
     private Double price;
     private LocalDateTime modificationDate;
-    private boolean status;
 }

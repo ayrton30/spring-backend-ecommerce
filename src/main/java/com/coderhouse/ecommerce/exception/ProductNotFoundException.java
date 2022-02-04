@@ -1,8 +1,6 @@
 package com.coderhouse.ecommerce.exception;
 
-public class ProductNotFoundException extends Exception {
-    private String msg;
-
+public class ProductNotFoundException extends ApiException {
     public ProductNotFoundException(){
         super("Product not found");
     }

@@ -23,7 +23,6 @@ public class CategoryBuilder {
                 .code(document.getCode())
                 .name(document.getName())
                 .modificationDate(document.getModificationDate())
-                .status(true)
                 .build();
     }
 

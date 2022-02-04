@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -22,31 +23,31 @@ public class CategoryController {
 
     @GetMapping("/{code}")
     public CategoryResponse getCategoryByCode(@PathVariable String code) throws CategoryNotFoundException {
-        log.info("GET REQUEST ... getCategoryByCode");
+        log.info("GET REQUEST ... getCategoryByCode | Fecha de ejecución: " + LocalDateTime.now());
         return service.getByCode(code);
     }
 
     @GetMapping("/all")
     public List<CategoryResponse> getAllCategories() {
-        log.info("GET REQUEST ... getAllCategories");
+        log.info("GET REQUEST ... getAllCategories | Fecha de ejecución: " + LocalDateTime.now());
         return service.getAll();
     }
 
     @PostMapping("")
     public CategoryResponse createCategory(@Validated @RequestBody CategoryRequest request) throws CategoryAlreadyExistException {
-        log.info("POST REQUEST ... createCategory");
+        log.info("POST REQUEST ... createCategory | Fecha de ejecución: " + LocalDateTime.now());
         return service.create(request);
     }
 
     @PutMapping("")
     public CategoryResponse updateCategory(@Validated @RequestBody CategoryRequest request) throws CategoryNotFoundException {
-        log.info("UPDATE REQUEST ... updateCategory");
+        log.info("UPDATE REQUEST ... updateCategory | Fecha de ejecución: " + LocalDateTime.now());
         return service.update(request);
     }
 
     @DeleteMapping("/{code}")
     public CategoryResponse deleteCategory(@PathVariable String code) throws CategoryNotFoundException {
-        log.info("DELETE REQUEST ... deleteCategory");
+        log.info("DELETE REQUEST ... deleteCategory | Fecha de ejecución: " + LocalDateTime.now());
         return service.delete(code);
     }
 

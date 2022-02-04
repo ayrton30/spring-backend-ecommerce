@@ -30,7 +30,6 @@ public class ProductBuilder {
                 .categoryCode(document.getCategoryCode())
                 .price(document.getPrice())
                 .modificationDate(document.getModificationDate())
-                .status(true)
                 .build();
     }
 

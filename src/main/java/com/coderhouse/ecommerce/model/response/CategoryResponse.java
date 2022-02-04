@@ -14,5 +14,4 @@ public class CategoryResponse {
     private String code;
     private String name;
     private LocalDateTime modificationDate;
-    private boolean status;
 }

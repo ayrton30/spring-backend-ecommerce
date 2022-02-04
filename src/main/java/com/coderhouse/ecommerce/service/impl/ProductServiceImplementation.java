@@ -54,7 +54,7 @@ public class ProductServiceImplementation implements ProductService {
         if(!checkExist.product(request.getCode())) {
             throw new ProductNotFoundException();
         }
-        //se quiere actualizar categoria que no existe
+        //se quiere actualizar categoría que no existe
         if(!checkExist.category(request.getCategoryCode())) {
             throw new CategoryNotFoundException();
         }
