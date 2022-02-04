@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    ProductResponse create(ProductRequest request) throws ProductAlreadyExistException, CategoryNotFoundException;
-    ProductResponse getByCode(String code) throws ProductNotFoundException;
+    ProductResponse create(ProductRequest request) throws Exception;
+    ProductResponse getByCode(String code) throws Exception;
     List<ProductResponse> getAll();
-    ProductResponse update(ProductRequest request) throws ProductNotFoundException, CategoryNotFoundException;
-    ProductResponse delete(String code) throws ProductNotFoundException;
+    ProductResponse update(ProductRequest request) throws Exception;
+    ProductResponse delete(String code) throws Exception;
 }

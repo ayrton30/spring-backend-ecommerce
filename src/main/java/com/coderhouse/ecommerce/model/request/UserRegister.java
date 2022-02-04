@@ -21,7 +21,5 @@ public class UserRegister {
     private String email;
     @NotBlank(message = "password can't be blank")
     private String password;
-    @NotBlank(message = "password can't be blank")
-    private String repeatPassword;
 
 }

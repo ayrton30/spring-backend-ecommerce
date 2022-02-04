@@ -22,7 +22,7 @@ public class CategoryServiceImplementation implements CategoryService {
     private CheckExist checkExist;
 
     @Override
-    public CategoryResponse create(CategoryRequest request) throws CategoryAlreadyExistException {
+    public CategoryResponse create(CategoryRequest request) throws Exception {
         if(checkExist.category(request.getCode())) {
             throw new CategoryAlreadyExistException();
         }
@@ -31,7 +31,7 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public CategoryResponse getByCode(String code) throws CategoryNotFoundException {
+    public CategoryResponse getByCode(String code) throws Exception {
         if(!checkExist.category(code)){
             throw new CategoryNotFoundException();
         }
@@ -44,7 +44,7 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public CategoryResponse update(CategoryRequest request) throws CategoryNotFoundException {
+    public CategoryResponse update(CategoryRequest request) throws Exception {
         if(!checkExist.category(request.getCode())){
             throw new CategoryNotFoundException();
         }
@@ -57,7 +57,7 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public CategoryResponse delete(String code) throws CategoryNotFoundException {
+    public CategoryResponse delete(String code) throws Exception {
         if(!checkExist.category(code)){
             throw new CategoryNotFoundException();
         }

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface CategoryService {
 
-    CategoryResponse create(CategoryRequest request) throws CategoryAlreadyExistException;
-    CategoryResponse getByCode(String code) throws CategoryNotFoundException;
+    CategoryResponse create(CategoryRequest request) throws Exception;
+    CategoryResponse getByCode(String code) throws Exception;
     List<CategoryResponse> getAll();
-    CategoryResponse update(CategoryRequest request) throws CategoryNotFoundException;
-    CategoryResponse delete(String code) throws CategoryNotFoundException;
+    CategoryResponse update(CategoryRequest request) throws Exception;
+    CategoryResponse delete(String code) throws Exception;
 }

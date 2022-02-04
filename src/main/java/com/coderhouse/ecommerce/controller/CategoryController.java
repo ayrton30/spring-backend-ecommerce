@@ -22,7 +22,7 @@ public class CategoryController {
     private CategoryService service;
 
     @GetMapping("/{code}")
-    public CategoryResponse getCategoryByCode(@PathVariable String code) throws CategoryNotFoundException {
+    public CategoryResponse getCategoryByCode(@PathVariable String code) throws Exception {
         log.info("GET REQUEST ... getCategoryByCode | Fecha de ejecución: " + LocalDateTime.now());
         return service.getByCode(code);
     }
@@ -34,19 +34,19 @@ public class CategoryController {
     }
 
     @PostMapping("")
-    public CategoryResponse createCategory(@Validated @RequestBody CategoryRequest request) throws CategoryAlreadyExistException {
+    public CategoryResponse createCategory(@Validated @RequestBody CategoryRequest request) throws Exception {
         log.info("POST REQUEST ... createCategory | Fecha de ejecución: " + LocalDateTime.now());
         return service.create(request);
     }
 
     @PutMapping("")
-    public CategoryResponse updateCategory(@Validated @RequestBody CategoryRequest request) throws CategoryNotFoundException {
+    public CategoryResponse updateCategory(@Validated @RequestBody CategoryRequest request) throws Exception {
         log.info("UPDATE REQUEST ... updateCategory | Fecha de ejecución: " + LocalDateTime.now());
         return service.update(request);
     }
 
     @DeleteMapping("/{code}")
-    public CategoryResponse deleteCategory(@PathVariable String code) throws CategoryNotFoundException {
+    public CategoryResponse deleteCategory(@PathVariable String code) throws Exception {
         log.info("DELETE REQUEST ... deleteCategory | Fecha de ejecución: " + LocalDateTime.now());
         return service.delete(code);
     }

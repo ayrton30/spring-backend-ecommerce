@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler (ApiException.class)
-    @ResponseStatus (HttpStatus.NOT_FOUND)
+    @ResponseStatus (HttpStatus.BAD_REQUEST)
     public ErrorMessage ApiException(ApiException ex) {
         log.error(ex.getClass().getSimpleName() + " " + ex.getMessage());
         return ErrorMessage.of(ex.getClass().getSimpleName(), ex.getMessage());

@@ -12,7 +12,6 @@ public class UserBuilder {
                 .name(request.getName())
                 .telephone(request.getTelephone())
                 .email(request.getEmail())
-                // encriptando la contraseña
                 .password(request.getPassword())
                 .build();
     }

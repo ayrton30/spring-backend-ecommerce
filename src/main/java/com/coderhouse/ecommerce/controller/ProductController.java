@@ -23,7 +23,7 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping("/{code}")
-    public ProductResponse getProductByCode(@PathVariable String code) throws ProductNotFoundException {
+    public ProductResponse getProductByCode(@PathVariable String code) throws Exception {
         log.info("GET REQUEST ... getProductByCode | Fecha de ejecución: " + LocalDateTime.now());
         return service.getByCode(code);
     }
@@ -35,19 +35,19 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ProductResponse createProduct(@Validated @RequestBody ProductRequest request) throws ProductAlreadyExistException, CategoryNotFoundException {
+    public ProductResponse createProduct(@Validated @RequestBody ProductRequest request) throws Exception {
         log.info("POST REQUEST ... createProduct | Fecha de ejecución: " + LocalDateTime.now());
         return service.create(request);
     }
 
     @PutMapping("")
-    public ProductResponse updateProduct(@Validated @RequestBody ProductRequest request) throws ProductNotFoundException, CategoryNotFoundException {
+    public ProductResponse updateProduct(@Validated @RequestBody ProductRequest request) throws Exception {
         log.info("UPDATE REQUEST ... updateProduct | Fecha de ejecución: " + LocalDateTime.now());
         return service.update(request);
     }
 
     @DeleteMapping("/{code}")
-    public ProductResponse deleteProduct(@PathVariable String code) throws ProductNotFoundException {
+    public ProductResponse deleteProduct(@PathVariable String code) throws Exception {
         log.info("DELETE REQUEST ... deleteProduct | Fecha de ejecución: " + LocalDateTime.now());
         return service.delete(code);
     }

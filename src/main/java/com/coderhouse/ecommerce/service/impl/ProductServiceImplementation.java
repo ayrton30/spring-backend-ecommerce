@@ -24,7 +24,7 @@ public class ProductServiceImplementation implements ProductService {
 
 
     @Override
-    public ProductResponse create(ProductRequest request) throws ProductAlreadyExistException, CategoryNotFoundException {
+    public ProductResponse create(ProductRequest request) throws Exception {
         if(checkExist.product(request.getCode())) {
             throw new ProductAlreadyExistException();
         }
@@ -37,7 +37,7 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductResponse getByCode(String code) throws ProductNotFoundException {
+    public ProductResponse getByCode(String code) throws Exception {
         if(!checkExist.product(code)){
             throw new ProductNotFoundException();
         }
@@ -50,7 +50,7 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductResponse update(ProductRequest request) throws ProductNotFoundException, CategoryNotFoundException {
+    public ProductResponse update(ProductRequest request) throws Exception {
         if(!checkExist.product(request.getCode())) {
             throw new ProductNotFoundException();
         }
@@ -68,7 +68,7 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductResponse delete(String code) throws ProductNotFoundException {
+    public ProductResponse delete(String code) throws Exception {
         if(!checkExist.product(code)){
             throw new ProductNotFoundException();
         }
