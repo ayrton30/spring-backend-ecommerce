@@ -5,3 +5,7 @@ spring:
       database: ecommerce
 server:
   port: 8080
+jwt:
+  secret: spring-app-ecommerce
+  # 30 = min -> 180 seconds -> 180.000 milliseconds
+  expiration: 1800000

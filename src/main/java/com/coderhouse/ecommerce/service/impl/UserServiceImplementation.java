@@ -7,6 +7,7 @@ import com.coderhouse.ecommerce.model.request.UserLogin;
 import com.coderhouse.ecommerce.model.request.UserRegister;
 import com.coderhouse.ecommerce.model.response.UserResponse;
 import com.coderhouse.ecommerce.repository.UserRepository;
+import com.coderhouse.ecommerce.security.JwtProvider;
 import com.coderhouse.ecommerce.service.UserService;
 import com.coderhouse.ecommerce.util.CheckExist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class UserServiceImplementation implements UserService {
     private CheckExist checkExist;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtProvider jwtProvider;
 
 
     @Override
@@ -32,7 +35,7 @@ public class UserServiceImplementation implements UserService {
         //encriptando la contraseña
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         var document = repository.save(UserBuilder.requestRegisterToDocument(request));
-        return UserBuilder.documentToResponse(document);
+        return UserBuilder.documentToResponse(document, jwtProvider.getJWTToken(request.getEmail()));
     }
 
     @Override
@@ -42,7 +45,8 @@ public class UserServiceImplementation implements UserService {
                 !passwordEncoder.matches(request.getPassword(), getPasswordByEmail(userEmail))) {
             throw new LoginErrorException();
         }
-        return UserBuilder.requestLoginToResponse(request);
+        var document = repository.findByEmail(userEmail);
+        return UserBuilder.documentToResponse(document, jwtProvider.getJWTToken(request.getEmail()));
     }
 
     private String getPasswordByEmail(String email) {

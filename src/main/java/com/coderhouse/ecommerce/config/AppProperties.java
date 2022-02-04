@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties
 public class AppProperties {
 
-    //size of n (128, 192, and 256) bits
-    private int keySize = 128;
-    private String algorithm = "AES/CBC/PKCS5Padding";
-
+    @Value(value = "${jwt.secret}")
+    private String jwtSecret;
+    @Value(value = "${jwt.expiration}")
+    private int expiration;
 }
