@@ -3,7 +3,7 @@ package com.coderhouse.ecommerce.util;
 public class Constants {
 
     //Redis
-    public static final String NAME_MAP_MESSAGE = "mensaje-map";
+    public static final String MAP = "redis-map";
 
     //Security
     public static final String ROLE = "ROLE_USER";
