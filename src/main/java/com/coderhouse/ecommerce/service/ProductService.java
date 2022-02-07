@@ -12,6 +12,7 @@ public interface ProductService {
 
     ProductResponse create(ProductRequest request) throws Exception;
     ProductResponse getByCode(String code) throws Exception;
+    List<ProductResponse> getByCategory(String categoryCode) throws Exception;
     List<ProductResponse> getAll();
     ProductResponse update(ProductRequest request) throws Exception;
     ProductResponse delete(String code) throws Exception;

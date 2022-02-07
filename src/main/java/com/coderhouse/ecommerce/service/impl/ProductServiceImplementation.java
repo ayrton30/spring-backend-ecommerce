@@ -5,7 +5,6 @@ import com.coderhouse.ecommerce.cache.CacheClient;
 import com.coderhouse.ecommerce.exception.CategoryNotFoundException;
 import com.coderhouse.ecommerce.exception.ProductAlreadyExistException;
 import com.coderhouse.ecommerce.exception.ProductNotFoundException;
-import com.coderhouse.ecommerce.model.document.CategoryDocument;
 import com.coderhouse.ecommerce.model.document.ProductDocument;
 import com.coderhouse.ecommerce.model.request.ProductRequest;
 import com.coderhouse.ecommerce.model.response.ProductResponse;
@@ -55,6 +54,14 @@ public class ProductServiceImplementation implements ProductService {
         }
         var documentCache = saveProductInCache(repository.findByCode(code));
         return ProductBuilder.documentToResponse(documentCache);
+    }
+
+    @Override
+    public List<ProductResponse> getByCategory(String categoryCode) throws Exception {
+        if(!checkExist.category(categoryCode)) {
+            throw new CategoryNotFoundException();
+        }
+        return ProductBuilder.listDocumentsToListResponse(repository.findByCategoryCode(categoryCode));
     }
 
     @Override

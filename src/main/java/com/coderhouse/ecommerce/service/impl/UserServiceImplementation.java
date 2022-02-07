@@ -4,8 +4,6 @@ import com.coderhouse.ecommerce.builder.UserBuilder;
 import com.coderhouse.ecommerce.cache.CacheClient;
 import com.coderhouse.ecommerce.exception.LoginErrorException;
 import com.coderhouse.ecommerce.exception.UserAlreadyExistException;
-import com.coderhouse.ecommerce.model.document.CategoryDocument;
-import com.coderhouse.ecommerce.model.document.UserDocument;
 import com.coderhouse.ecommerce.model.request.UserLogin;
 import com.coderhouse.ecommerce.model.request.UserRegister;
 import com.coderhouse.ecommerce.model.response.UserResponse;

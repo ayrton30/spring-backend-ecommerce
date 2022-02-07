@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @GetMapping("/{code}")
+    @GetMapping("/code/{code}")
     public ProductResponse getProductByCode(@PathVariable String code) throws Exception {
         log.info("GET REQUEST ... getProductByCode | Fecha de ejecución: " + LocalDateTime.now());
         return service.getByCode(code);
@@ -32,6 +33,12 @@ public class ProductController {
     public List<ProductResponse> getAllProducts() {
         log.info("GET REQUEST ... getAllProducts | Fecha de ejecución: " + LocalDateTime.now());
         return service.getAll();
+    }
+
+    @GetMapping("category/{category}")
+    public List<ProductResponse> getProductsByCategory(@PathVariable String category) throws Exception {
+        log.info("GET REQUEST ... getProductsByCategory | Fecha de ejecución: " + LocalDateTime.now());
+        return service.getByCategory(category);
     }
 
     @PostMapping("")
