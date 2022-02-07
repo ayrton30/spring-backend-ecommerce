@@ -27,4 +27,11 @@ public class UserBuilder {
                 .token(token)
                 .build();
     }
+
+    public static UserResponse emailToResponse(String email, String token) {
+        return UserResponse.builder()
+                .email(email)
+                .token(token)
+                .build();
+    }
 }

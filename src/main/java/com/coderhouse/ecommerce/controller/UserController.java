@@ -30,7 +30,4 @@ public class UserController {
         log.info("POST REQUEST ... login | Fecha de ejecución: " + LocalDateTime.now());
         return service.login(request);
     }
-
-
-
 }

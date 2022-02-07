@@ -25,12 +25,12 @@ public class CacheClientImpl<T> implements CacheClient<T> {
     @PostConstruct
     void setHashOperations() {
         hashOperations = this.redisTemplate.opsForHash();
-        this.redisTemplate.expire(Constants.MAP, Duration.ofMillis(properties.getTimeOfLife()));
     }
 
     @Override
     public T save(String key, T data) throws Exception {
        hashOperations.put(Constants.MAP, key, serializeItem(data));
+       this.redisTemplate.expire(Constants.MAP, Duration.ofMillis(properties.getTimeOfLife()));
        return data;
     }
 
