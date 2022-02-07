@@ -2,7 +2,6 @@ package com.coderhouse.ecommerce.cache;
 
 import com.coderhouse.ecommerce.config.AppProperties;
 import com.coderhouse.ecommerce.util.Constants;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +19,8 @@ public class CacheClientImpl<T> implements CacheClient<T> {
 
     private final RedisTemplate<String, T> redisTemplate;
     private final AppProperties properties;
-    private HashOperations<String, String, String> hashOperations;
     private final ObjectMapper mapper;
+    private HashOperations<String, String, String> hashOperations;
 
     @PostConstruct
     void setHashOperations() {

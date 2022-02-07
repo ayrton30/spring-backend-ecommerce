@@ -1,9 +1,12 @@
 package com.coderhouse.ecommerce.service.impl;
 
 import com.coderhouse.ecommerce.builder.ProductBuilder;
+import com.coderhouse.ecommerce.cache.CacheClient;
 import com.coderhouse.ecommerce.exception.CategoryNotFoundException;
 import com.coderhouse.ecommerce.exception.ProductAlreadyExistException;
 import com.coderhouse.ecommerce.exception.ProductNotFoundException;
+import com.coderhouse.ecommerce.model.document.CategoryDocument;
+import com.coderhouse.ecommerce.model.document.ProductDocument;
 import com.coderhouse.ecommerce.model.request.ProductRequest;
 import com.coderhouse.ecommerce.model.response.ProductResponse;
 import com.coderhouse.ecommerce.repository.ProductRepository;
@@ -20,6 +23,8 @@ public class ProductServiceImplementation implements ProductService {
     @Autowired
     private ProductRepository repository;
     @Autowired
+    private CacheClient<ProductDocument> cache;
+    @Autowired
     private CheckExist checkExist;
 
 
@@ -32,8 +37,10 @@ public class ProductServiceImplementation implements ProductService {
         if(!checkExist.category(request.getCategoryCode())) {
             throw new CategoryNotFoundException();
         }
+
         var document = repository.save(ProductBuilder.requestToDocument(request));
-        return ProductBuilder.documentToResponse(document);
+        var documentCache = saveProductInCache(document);
+        return ProductBuilder.documentToResponse(documentCache);
     }
 
     @Override
@@ -41,7 +48,13 @@ public class ProductServiceImplementation implements ProductService {
         if(!checkExist.product(code)){
             throw new ProductNotFoundException();
         }
-        return ProductBuilder.documentToResponse(repository.findByCode(code));
+        //busco en cache
+        if(cache.exist(code)){
+            var documentCache = cache.recover(code, ProductDocument.class);
+            return ProductBuilder.documentToResponse(documentCache);
+        }
+        var documentCache = saveProductInCache(repository.findByCode(code));
+        return ProductBuilder.documentToResponse(documentCache);
     }
 
     @Override
@@ -62,8 +75,8 @@ public class ProductServiceImplementation implements ProductService {
         var document = ProductBuilder.requestToDocument(request);
         //setteo el id de mongodb
         document.setId(repository.findByCode(request.getCode()).getId());
-
-        var documentSaved = repository.save(document);
+        var documentCache = saveProductInCache(document);
+        var documentSaved = repository.save(documentCache);
         return ProductBuilder.documentToResponse(documentSaved);
     }
 
@@ -74,6 +87,11 @@ public class ProductServiceImplementation implements ProductService {
         }
         var document = repository.findByCode(code);
         repository.delete(document);
+        cache.delete(code);
         return ProductBuilder.documentToResponse(document);
+    }
+
+    private ProductDocument saveProductInCache(ProductDocument product) throws Exception {
+        return cache.save(product.getCode(), product);
     }
 }
