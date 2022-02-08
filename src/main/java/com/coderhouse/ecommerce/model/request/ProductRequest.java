@@ -18,6 +18,7 @@ public class ProductRequest {
     @NotBlank(message = "name can't be blank")
     private String name;
     private String description;
+    @NotBlank(message = "price can't be blank")
     private Double price;
     @NotBlank(message = "category can't be blank")
     private String categoryCode;

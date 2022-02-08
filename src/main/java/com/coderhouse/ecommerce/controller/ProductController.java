@@ -1,8 +1,5 @@
 package com.coderhouse.ecommerce.controller;
 
-import com.coderhouse.ecommerce.exception.CategoryNotFoundException;
-import com.coderhouse.ecommerce.exception.ProductAlreadyExistException;
-import com.coderhouse.ecommerce.exception.ProductNotFoundException;
 import com.coderhouse.ecommerce.model.request.ProductRequest;
 import com.coderhouse.ecommerce.model.response.ProductResponse;
 import com.coderhouse.ecommerce.service.ProductService;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,7 +31,7 @@ public class ProductController {
         return service.getAll();
     }
 
-    @GetMapping("category/{category}")
+    @GetMapping("/category/{category}")
     public List<ProductResponse> getProductsByCategory(@PathVariable String category) throws Exception {
         log.info("GET REQUEST ... getProductsByCategory | Fecha de ejecución: " + LocalDateTime.now());
         return service.getByCategory(category);

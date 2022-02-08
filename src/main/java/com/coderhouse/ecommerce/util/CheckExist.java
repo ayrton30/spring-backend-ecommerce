@@ -1,5 +1,7 @@
 package com.coderhouse.ecommerce.util;
 
+import com.coderhouse.ecommerce.model.response.CartResponse;
+import com.coderhouse.ecommerce.repository.CartRepository;
 import com.coderhouse.ecommerce.repository.CategoryRepository;
 import com.coderhouse.ecommerce.repository.ProductRepository;
 import com.coderhouse.ecommerce.repository.UserRepository;
@@ -14,6 +16,8 @@ public class CheckExist {
     private ProductRepository productRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CartRepository cartRepository;
 
     public boolean category(String code) {
         return categoryRepository.existsByCode(code);
@@ -25,5 +29,9 @@ public class CheckExist {
 
     public boolean user(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public boolean cart(String email) {
+        return cartRepository.existsByEmail(email);
     }
 }

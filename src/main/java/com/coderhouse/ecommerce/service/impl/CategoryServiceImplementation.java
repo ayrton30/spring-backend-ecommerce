@@ -38,11 +38,11 @@ public class CategoryServiceImplementation implements CategoryService {
 
     @Override
     public CategoryResponse getByCode(String code) throws Exception {
-        if(!checkExist.category(code)){
+        if(!checkExist.category(code)) {
             throw new CategoryNotFoundException();
         }
 
-        if(cache.exist(code)){
+        if(cache.exist(code)) {
             var documentCache = cache.recover(code, CategoryDocument.class);
             return CategoryBuilder.documentToResponse(documentCache);
         }
@@ -57,9 +57,10 @@ public class CategoryServiceImplementation implements CategoryService {
 
     @Override
     public CategoryResponse update(CategoryRequest request) throws Exception {
-        if(!checkExist.category(request.getCode())){
+        if(!checkExist.category(request.getCode())) {
             throw new CategoryNotFoundException();
         }
+
         var document = CategoryBuilder.requestToDocument(request);
         //setteo el id de mongodb
         document.setId(repository.findByCode(request.getCode()).getId());
@@ -70,7 +71,7 @@ public class CategoryServiceImplementation implements CategoryService {
 
     @Override
     public CategoryResponse delete(String code) throws Exception {
-        if(!checkExist.category(code)){
+        if(!checkExist.category(code)) {
             throw new CategoryNotFoundException();
         }
         var document = repository.findByCode(code);
