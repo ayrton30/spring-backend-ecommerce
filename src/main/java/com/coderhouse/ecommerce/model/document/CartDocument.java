@@ -21,7 +21,7 @@ public class CartDocument {
     private String id;
     private String email;
     private List<Item> products = new ArrayList<>();
-    private String shippingDirection;
+    private String shippingAddress;
     private LocalDateTime modificationDate;
 
 }

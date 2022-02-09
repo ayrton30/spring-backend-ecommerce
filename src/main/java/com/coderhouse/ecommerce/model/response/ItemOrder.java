@@ -16,4 +16,9 @@ public class ItemOrder {
     private Double productPrice;
     private String categoryName;
     private Integer quantity;
+
+    @Override
+    public String toString() {
+        return "(" + quantity + ")" + "x. " + productName + " - $" + productPrice*quantity;
+    }
 }

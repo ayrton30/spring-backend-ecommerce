@@ -23,7 +23,7 @@ public class OrderBuilder {
                 .products(document.getProducts())
                 .orderDate(LocalDateTime.now())
                 .stateOfOrder("generated")
-                .shippingDirection(document.getShippingDirection())
+                .shippingAddress(document.getShippingAddress())
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class OrderBuilder {
                 .orderDate(document.getOrderDate())
                 .email(document.getEmail())
                 .stateOfOrder(document.getStateOfOrder())
-                .shippingDirection(document.getShippingDirection())
+                .shippingAddress(document.getShippingAddress())
                 .build();
 
     }

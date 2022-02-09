@@ -31,4 +31,10 @@ public class OrderController {
         log.info("GET REQUEST ... getAllOrders | Fecha de ejecución: " + LocalDateTime.now());
         return service.getAll();
     }
+
+    @GetMapping("/{orderNumber}")
+    public OrderResponse getOrder(@PathVariable Long orderNumber) throws Exception {
+        log.info("GET REQUEST ... getOrder | Fecha de ejecución: " + LocalDateTime.now());
+        return service.getOrder(orderNumber);
+    }
 }

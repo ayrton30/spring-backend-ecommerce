@@ -23,4 +23,9 @@ public class AppProperties {
     private String jwtSecret;
     @Value(value = "${jwt.expiration}")
     private int expiration;
+
+    //Se enviará un mail a una casilla configurable por cada registro nuevo de usuario
+    // y con cada orden de compra generada.
+    @Value(value = "${mail.config}")
+    private String configMail;
 }

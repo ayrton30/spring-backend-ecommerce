@@ -9,6 +9,7 @@ import com.coderhouse.ecommerce.model.request.UserRegister;
 import com.coderhouse.ecommerce.model.response.UserResponse;
 import com.coderhouse.ecommerce.repository.UserRepository;
 import com.coderhouse.ecommerce.security.JwtProvider;
+import com.coderhouse.ecommerce.service.EmailService;
 import com.coderhouse.ecommerce.service.UserService;
 import com.coderhouse.ecommerce.util.CheckExist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class UserServiceImplementation implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtProvider jwtProvider;
+    @Autowired
+    private EmailService emailService;
 
 
     @Override
@@ -42,6 +45,7 @@ public class UserServiceImplementation implements UserService {
         //encriptando la contraseña
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         var document = repository.save(UserBuilder.requestRegisterToDocument(request));
+        emailService.sendNewUserEmail(document);
         return UserBuilder.documentToResponse(document, token);
     }
 

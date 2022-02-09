@@ -15,6 +15,6 @@ public class CartRequest {
     @NotBlank(message = "email can't be blank")
     @Email(message = "email address is invalid")
     private String email;
-    @NotBlank(message = "shipping direction can't be blank")
-    private String shippingDirection;
+    @NotBlank(message = "shipping address can't be blank")
+    private String shippingAddress;
 }

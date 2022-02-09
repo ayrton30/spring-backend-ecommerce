@@ -19,5 +19,5 @@ public class OrderResponse {
     private List<ItemOrder> products;
     private LocalDateTime orderDate;
     private String stateOfOrder;
-    private String shippingDirection;
+    private String shippingAddress;
 }

@@ -17,6 +17,6 @@ public class CartResponse {
 
     private String email;
     private List<Item> products;
-    private String shippingDirection;
+    private String shippingAddress;
     private LocalDateTime modificationDate;
 }

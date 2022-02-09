@@ -3,10 +3,12 @@ package com.coderhouse.ecommerce.service.impl;
 import com.coderhouse.ecommerce.builder.OrderBuilder;
 import com.coderhouse.ecommerce.exception.CartEmptyException;
 import com.coderhouse.ecommerce.exception.CartNotFoundException;
+import com.coderhouse.ecommerce.exception.OrderNotFoundException;
 import com.coderhouse.ecommerce.model.request.OrderRequest;
 import com.coderhouse.ecommerce.model.response.OrderResponse;
 import com.coderhouse.ecommerce.repository.CartRepository;
 import com.coderhouse.ecommerce.repository.OrderRepository;
+import com.coderhouse.ecommerce.service.EmailService;
 import com.coderhouse.ecommerce.service.OrderService;
 import com.coderhouse.ecommerce.util.CheckExist;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class OrderServiceImplementation implements OrderService {
     private OrderBuilder orderBuilder;
     @Autowired
     private CheckExist checkExist;
+    @Autowired
+    private EmailService emailService;
 
 
     @Override
@@ -46,7 +50,19 @@ public class OrderServiceImplementation implements OrderService {
         //vacío el carrito
         cartRepository.delete(cartDocument);
 
-        return orderBuilder.documentToResponse(orderRepository.save(orderDocument));
+        //envío mail de confirmación de orden
+        var orderResponse = orderBuilder.documentToResponse(orderRepository.save(orderDocument));
+        emailService.sendOrderConfirmationEmail(orderResponse);
+        return orderResponse;
+    }
+
+    @Override
+    public OrderResponse getOrder(Long orderNumber) throws Exception {
+        var document = orderRepository.findByOrderNumber(orderNumber);
+        if(document == null) {
+            throw new OrderNotFoundException();
+        }
+        return orderBuilder.documentToResponse(document);
     }
 
     @Override

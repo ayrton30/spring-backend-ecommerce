@@ -23,5 +23,5 @@ public class OrderDocument {
     private LocalDateTime orderDate;
     private String stateOfOrder;
     private String email;
-    private String shippingDirection;
+    private String shippingAddress;
 }

@@ -14,7 +14,7 @@ public class CartBuilder {
         return CartDocument.builder()
                 .email(request.getEmail())
                 .modificationDate(LocalDateTime.now())
-                .shippingDirection(request.getShippingDirection())
+                .shippingAddress(request.getShippingAddress())
                 .build();
     }
 
@@ -23,7 +23,7 @@ public class CartBuilder {
                 .email(document.getEmail())
                 .products(document.getProducts())
                 .modificationDate(document.getModificationDate())
-                .shippingDirection(document.getShippingDirection())
+                .shippingAddress(document.getShippingAddress())
                 .build();
     }
 
