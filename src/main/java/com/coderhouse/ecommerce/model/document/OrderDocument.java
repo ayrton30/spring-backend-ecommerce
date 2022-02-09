@@ -6,7 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,14 +13,15 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document("cart")
-public class CartDocument {
+@Document("order")
+public class OrderDocument {
 
     @Id
     private String id;
+    private Long orderNumber;
+    private List<Item> products;
+    private LocalDateTime orderDate;
+    private String stateOfOrder;
     private String email;
-    private List<Item> products = new ArrayList<>();
     private String shippingDirection;
-    private LocalDateTime modificationDate;
-
 }

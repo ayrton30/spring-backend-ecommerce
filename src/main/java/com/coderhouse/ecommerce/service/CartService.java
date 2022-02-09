@@ -1,6 +1,6 @@
 package com.coderhouse.ecommerce.service;
 
-import com.coderhouse.ecommerce.model.Item;
+import com.coderhouse.ecommerce.model.request.Item;
 import com.coderhouse.ecommerce.model.request.CartItem;
 import com.coderhouse.ecommerce.model.request.CartRequest;
 import com.coderhouse.ecommerce.model.response.CartResponse;
@@ -16,8 +16,8 @@ public interface CartService {
     CartResponse delete(String email) throws Exception;
 
     //se suman cantidades si agregamos un mismo producto a un mismo carrito
-    public CartResponse addItem(CartItem request) throws Exception;
-    public CartResponse updateItem(CartItem request) throws Exception;
+    CartResponse addItem(CartItem request) throws Exception;
+    CartResponse updateItem(CartItem request) throws Exception;
     List<Item> getAllItems(String email) throws Exception;
-    public CartResponse deleteItem(String email, String productCode) throws Exception;
+    CartResponse deleteItem(String email, String productCode) throws Exception;
 }

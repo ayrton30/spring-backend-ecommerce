@@ -1,12 +1,8 @@
 package com.coderhouse.ecommerce.builder;
 
 import com.coderhouse.ecommerce.model.document.CartDocument;
-import com.coderhouse.ecommerce.model.document.CategoryDocument;
 import com.coderhouse.ecommerce.model.request.CartRequest;
-import com.coderhouse.ecommerce.model.request.CategoryRequest;
 import com.coderhouse.ecommerce.model.response.CartResponse;
-import com.coderhouse.ecommerce.model.response.CategoryResponse;
-import com.coderhouse.ecommerce.repository.CartRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package com.coderhouse.ecommerce.builder;
 
-
 import com.coderhouse.ecommerce.model.document.ProductDocument;
 import com.coderhouse.ecommerce.model.request.ProductRequest;
 import com.coderhouse.ecommerce.model.response.ProductResponse;

@@ -1,8 +1,5 @@
 package com.coderhouse.ecommerce.service;
 
-import com.coderhouse.ecommerce.exception.CategoryNotFoundException;
-import com.coderhouse.ecommerce.exception.ProductAlreadyExistException;
-import com.coderhouse.ecommerce.exception.ProductNotFoundException;
 import com.coderhouse.ecommerce.model.request.ProductRequest;
 import com.coderhouse.ecommerce.model.response.ProductResponse;
 

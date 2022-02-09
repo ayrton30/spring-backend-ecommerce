@@ -1,6 +1,5 @@
 package com.coderhouse.ecommerce.model.response;
 
-import com.coderhouse.ecommerce.model.request.Item;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -13,10 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CartResponse {
+public class OrderResponse {
 
     private String email;
-    private List<Item> products;
+    private Long orderNumber;
+    private List<ItemOrder> products;
+    private LocalDateTime orderDate;
+    private String stateOfOrder;
     private String shippingDirection;
-    private LocalDateTime modificationDate;
 }

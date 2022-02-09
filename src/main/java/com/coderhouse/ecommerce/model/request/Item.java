@@ -1,4 +1,4 @@
-package com.coderhouse.ecommerce.model;
+package com.coderhouse.ecommerce.model.request;
 
 import lombok.*;
 

@@ -1,6 +1,6 @@
 package com.coderhouse.ecommerce.controller;
 
-import com.coderhouse.ecommerce.model.Item;
+import com.coderhouse.ecommerce.model.request.Item;
 import com.coderhouse.ecommerce.model.request.CartItem;
 import com.coderhouse.ecommerce.model.request.CartRequest;
 import com.coderhouse.ecommerce.model.response.CartResponse;
