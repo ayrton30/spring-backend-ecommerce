@@ -1,11 +1,13 @@
 package com.coderhouse.ecommerce.service.impl;
 
 import com.coderhouse.ecommerce.builder.CartBuilder;
+import com.coderhouse.ecommerce.builder.ItemBuilder;
 import com.coderhouse.ecommerce.exception.*;
-import com.coderhouse.ecommerce.model.request.Item;
+import com.coderhouse.ecommerce.model.request.ItemRequest;
 import com.coderhouse.ecommerce.model.request.CartItem;
 import com.coderhouse.ecommerce.model.request.CartRequest;
 import com.coderhouse.ecommerce.model.response.CartResponse;
+import com.coderhouse.ecommerce.model.response.ItemResponse;
 import com.coderhouse.ecommerce.repository.CartRepository;
 import com.coderhouse.ecommerce.service.CartService;
 import com.coderhouse.ecommerce.util.CheckExist;
@@ -23,20 +25,25 @@ public class CartServiceImplementation implements CartService {
     private CartRepository repository;
     @Autowired
     private CheckExist checkExist;
+    @Autowired
+    private CartBuilder cartBuilder;
+    @Autowired
+    private ItemBuilder itemBuilder;
 
 
     @Override
     public CartResponse create(CartRequest request) throws Exception {
-        if(!checkExist.user(request.getEmail())) {
+        var email = request.getEmail();
+        if(!checkExist.user(email)) {
             throw new UserNotFoundException();
         }
 
-        if(checkExist.cart(request.getEmail())) {
+        if(checkExist.cart(email)) {
             throw new CartAlreadyExistException();
         }
 
-        var document = repository.save(CartBuilder.requestToDocument(request));
-        return CartBuilder.documentToResponse(document);
+        var document = repository.save(cartBuilder.requestToDocument(request));
+        return cartBuilder.documentToResponse(document);
     }
 
     @Override
@@ -44,24 +51,23 @@ public class CartServiceImplementation implements CartService {
         if(!checkExist.cart(email)) {
             throw new CartNotFoundException();
         }
-        return CartBuilder.documentToResponse(repository.findByEmail(email));
+        return cartBuilder.documentToResponse(repository.findByEmail(email));
     }
 
     @Override
     public List<CartResponse> getAll() {
-        return CartBuilder.listDocumentsToListResponse(repository.findAll());
+        return cartBuilder.listDocumentsToListResponse(repository.findAll());
     }
 
     @Override
     public CartResponse update(CartRequest request) throws Exception {
-        if(!checkExist.cart(request.getEmail())) {
+        var email = request.getEmail();
+        if(!checkExist.cart(email)) {
             throw new CartNotFoundException();
         }
 
-        var document = CartBuilder.requestToDocument(request);
-        document.setId(repository.findByEmail(request.getEmail()).getId());
-        document.setModificationDate(LocalDateTime.now());
-        return CartBuilder.documentToResponse(repository.save(document));
+        var document = cartBuilder.updateRequestToDocument(request, repository.findByEmail(email));
+        return cartBuilder.documentToResponse(repository.save(document));
     }
 
     @Override
@@ -71,7 +77,7 @@ public class CartServiceImplementation implements CartService {
         }
         var document = repository.findByEmail(email);
         repository.delete(document);
-        return CartBuilder.documentToResponse(document);
+        return cartBuilder.documentToResponse(document);
     }
 
     @Override
@@ -94,7 +100,7 @@ public class CartServiceImplementation implements CartService {
         }
 
         document.getProducts().add(product);
-        return CartBuilder.documentToResponse(repository.save(document));
+        return cartBuilder.documentToResponse(repository.save(document));
     }
 
     @Override
@@ -117,15 +123,16 @@ public class CartServiceImplementation implements CartService {
                     //si el item ya está en carrito se actualiza el valor de cantidad
                     .setQuantity(product.getQuantity());
 
-        return CartBuilder.documentToResponse(repository.save(document));
+        return cartBuilder.documentToResponse(repository.save(document));
     }
 
     @Override
-    public List<Item> getAllItems(String email) throws Exception {
+    public List<ItemResponse> getAllItems(String email) throws Exception {
         if(!checkExist.cart(email)) {
             throw new CartNotFoundException();
         }
-        return repository.findByEmail(email).getProducts();
+        var items = repository.findByEmail(email).getProducts();
+        return itemBuilder.listToListResponse(items);
     }
 
     @Override
@@ -142,6 +149,6 @@ public class CartServiceImplementation implements CartService {
 
         var documents = document.getProducts().stream().filter(item -> !item.getProductCode().equals(productCode));
         document.setProducts(documents.collect(Collectors.toList()));
-        return CartBuilder.documentToResponse(repository.save(document));
+        return cartBuilder.documentToResponse(repository.save(document));
     }
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class ItemRequest {
 
     @NotBlank(message = "product code can't be blank")
     @Pattern(regexp = "^[P].*$", message = "code of product needs to start with 'P'")

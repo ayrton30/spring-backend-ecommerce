@@ -1,6 +1,6 @@
 package com.coderhouse.ecommerce.model.response;
 
-import com.coderhouse.ecommerce.model.request.Item;
+import com.coderhouse.ecommerce.model.request.ItemRequest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class CartResponse {
 
     private String email;
-    private List<Item> products;
+    private List<ItemResponse> products;
     private String shippingAddress;
     private LocalDateTime modificationDate;
 }

@@ -17,5 +17,5 @@ public class CartItem {
     @Email(message = "email address is invalid")
     private String email;
     @Valid
-    private Item item;
+    private ItemRequest item;
 }

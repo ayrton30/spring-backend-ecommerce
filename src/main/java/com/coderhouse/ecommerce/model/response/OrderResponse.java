@@ -16,7 +16,7 @@ public class OrderResponse {
 
     private String email;
     private Long orderNumber;
-    private List<ItemOrder> products;
+    private List<ItemResponse> products;
     private LocalDateTime orderDate;
     private String stateOfOrder;
     private String shippingAddress;

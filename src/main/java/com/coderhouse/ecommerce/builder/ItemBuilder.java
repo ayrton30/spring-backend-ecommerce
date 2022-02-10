@@ -1,7 +1,7 @@
 package com.coderhouse.ecommerce.builder;
 
-import com.coderhouse.ecommerce.model.request.Item;
-import com.coderhouse.ecommerce.model.response.ItemOrder;
+import com.coderhouse.ecommerce.model.request.ItemRequest;
+import com.coderhouse.ecommerce.model.response.ItemResponse;
 import com.coderhouse.ecommerce.repository.CategoryRepository;
 import com.coderhouse.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class ItemBuilder {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public ItemOrder itemToItemOrder(Item item) {
+    public ItemResponse itemToItemOrder(ItemRequest item) {
 
         var productCode = item.getProductCode();
         var product = productRepository.findByCode(productCode);
@@ -26,7 +26,7 @@ public class ItemBuilder {
         var categoryCode = product.getCategoryCode();
         var category = categoryRepository.findByCode(categoryCode);
 
-        return ItemOrder.builder()
+        return ItemResponse.builder()
                 .productName(product.getName())
                 .productDescription(product.getDescription())
                 .productPrice(product.getPrice())
@@ -35,9 +35,12 @@ public class ItemBuilder {
                 .build();
     }
 
-    public List<ItemOrder> listToListResponse(List<Item> items) {
-        var listResponse = new ArrayList<ItemOrder>();
-        items.forEach(item -> listResponse.add(itemToItemOrder(item)));
+    public List<ItemResponse> listToListResponse(List<ItemRequest> items) {
+        var listResponse = new ArrayList<ItemResponse>();
+        if(!items.isEmpty()) {
+            items.forEach(item -> listResponse.add(itemToItemOrder(item)));
+            return listResponse;
+        }
         return listResponse;
     }
 

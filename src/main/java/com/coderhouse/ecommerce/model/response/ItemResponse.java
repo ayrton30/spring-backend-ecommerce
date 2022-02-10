@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ItemOrder {
+public class ItemResponse {
 
     private String productName;
     private String productDescription;

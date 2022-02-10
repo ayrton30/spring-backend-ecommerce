@@ -7,6 +7,7 @@ import com.coderhouse.ecommerce.exception.ProductAlreadyExistException;
 import com.coderhouse.ecommerce.exception.ProductNotFoundException;
 import com.coderhouse.ecommerce.model.document.ProductDocument;
 import com.coderhouse.ecommerce.model.request.ProductRequest;
+import com.coderhouse.ecommerce.model.request.ProductUpdateRequest;
 import com.coderhouse.ecommerce.model.response.ProductResponse;
 import com.coderhouse.ecommerce.repository.ProductRepository;
 import com.coderhouse.ecommerce.service.ProductService;
@@ -14,6 +15,7 @@ import com.coderhouse.ecommerce.util.CheckExist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -70,18 +72,19 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductResponse update(ProductRequest request) throws Exception {
-        if(!checkExist.product(request.getCode())) {
+    public ProductResponse update(ProductUpdateRequest request) throws Exception {
+        var productCode = request.getCode();
+        if(!checkExist.product(productCode)) {
             throw new ProductNotFoundException();
         }
         //se quiere actualizar categoría que no existe
-        if(!checkExist.category(request.getCategoryCode())) {
-            throw new CategoryNotFoundException();
+        if(request.getCategoryCode() != null) {
+            if(!checkExist.category(request.getCategoryCode())) {
+                throw new CategoryNotFoundException();
+            }
         }
 
-        var document = ProductBuilder.requestToDocument(request);
-        //setteo el id de mongodb
-        document.setId(repository.findByCode(request.getCode()).getId());
+        var document = ProductBuilder.updateRequestToDocument(request, repository.findByCode(productCode));
         var documentCache = saveProductInCache(document);
         var documentSaved = repository.save(documentCache);
         return ProductBuilder.documentToResponse(documentSaved);

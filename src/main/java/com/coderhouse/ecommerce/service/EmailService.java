@@ -2,7 +2,7 @@ package com.coderhouse.ecommerce.service;
 
 import com.coderhouse.ecommerce.config.AppProperties;
 import com.coderhouse.ecommerce.model.document.UserDocument;
-import com.coderhouse.ecommerce.model.response.ItemOrder;
+import com.coderhouse.ecommerce.model.response.ItemResponse;
 import com.coderhouse.ecommerce.model.response.OrderResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,7 +27,7 @@ public class EmailService {
                 "Order #" + data.getOrderNumber() + "\n" +
                 "Products: \n";
         var msgProducts = "";
-        for (ItemOrder product : data.getProducts()) {
+        for (ItemResponse product : data.getProducts()) {
             msgProducts = msgProducts + product.toString() + "\n";
         }
 
