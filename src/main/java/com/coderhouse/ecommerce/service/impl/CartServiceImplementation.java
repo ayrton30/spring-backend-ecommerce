@@ -3,7 +3,6 @@ package com.coderhouse.ecommerce.service.impl;
 import com.coderhouse.ecommerce.builder.CartBuilder;
 import com.coderhouse.ecommerce.builder.ItemBuilder;
 import com.coderhouse.ecommerce.exception.*;
-import com.coderhouse.ecommerce.model.request.ItemRequest;
 import com.coderhouse.ecommerce.model.request.CartItem;
 import com.coderhouse.ecommerce.model.request.CartRequest;
 import com.coderhouse.ecommerce.model.response.CartResponse;

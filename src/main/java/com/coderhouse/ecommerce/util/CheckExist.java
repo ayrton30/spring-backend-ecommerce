@@ -1,6 +1,5 @@
 package com.coderhouse.ecommerce.util;
 
-import com.coderhouse.ecommerce.model.response.CartResponse;
 import com.coderhouse.ecommerce.repository.CartRepository;
 import com.coderhouse.ecommerce.repository.CategoryRepository;
 import com.coderhouse.ecommerce.repository.ProductRepository;

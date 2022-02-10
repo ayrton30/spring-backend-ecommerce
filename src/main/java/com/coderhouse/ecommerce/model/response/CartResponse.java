@@ -1,6 +1,5 @@
 package com.coderhouse.ecommerce.model.response;
 
-import com.coderhouse.ecommerce.model.request.ItemRequest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
